@@ -13,58 +13,44 @@ public:
    int romanToInt(std::string Str) {
       int result = 0;
 
-      for (std::size_t i = 0; i < Str.size(); ++i) {
-         if ('I' == Str[i]) {
-            if ('V' == Str[i + 1]) {
-               result += 4;
-               i += 1;
-            }
-            else if ('X' == Str[i + 1]) {
-               result += 9;
-               i += 1;
+      char prev = Str.back();
+      for (auto it = Str.rbegin(); it != Str.rend(); ++it) {
+         if ('I' == *it) {
+            if (prev == 'V' || prev == 'X') {
+               result -= 1;
             }
             else {
                result += 1;
             }
          }
-         else if ('V' == Str[i]) {
+         else if ('V' == *it) {
             result += 5;
          }
-         else if ('X' == Str[i]) {
-            if ('L' == Str[i + 1]) {
-               result += 40;
-               i += 1;
-            }
-            else if ('C' == Str[i + 1]) {
-               result += 90;
-               i += 1;
-            }
-            else {
+         else if ('X' == *it) {
+            if (prev == 'L' || prev == 'C') {
+               result -= 10;
+            } else {
                result += 10;
             }
          }
-         else if ('L' == Str[i]) {
+         else if ('L' == *it) {
             result += 50;
          }
-         else if ('C' == Str[i]) {
-            if ('D' == Str[i + 1]) {
-               result += 400;
-               i += 1;
-            }
-            else if ('M' == Str[i + 1]) {
-               result += 900;
-               i += 1;
-            }
-            else {
+         else if ('C' == *it) {
+            if (prev == 'D' || prev == 'M') {
+               result -= 100;
+            } else {
                result += 100;
             }
          }
-         else if ('D' == Str[i]) {
+         else if ('D' == *it) {
             result += 500;
          }
-         else if ('M' == Str[i]) {
+         else if ('M' == *it) {
             result += 1000;
          }
+
+         prev = *it;
       }
 
       return result;
