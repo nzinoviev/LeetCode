@@ -10,4 +10,5 @@ if (NOT CMAKE_BUILD_TYPE)
    set(CMAKE_BUILD_TYPE "Debug")
 endif()
 
+add_subdirectory(External/GTest)
 add_subdirectory(String)
