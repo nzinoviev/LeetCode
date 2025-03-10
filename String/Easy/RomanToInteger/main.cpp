@@ -10,59 +10,36 @@
 
 class Solution {
 public:
-   int romanToInt(std::string Str) {
+   int romanToInt(const std::string& Str) {
       int result = 0;
 
-      char prev = Str.back();
-      for (auto it = Str.rbegin(); it != Str.rend(); ++it) {
-         if ('I' == *it) {
-            if (prev == 'V' || prev == 'X') {
-               result -= 1;
+      for (int i = Str.size() - 1; i >= 0; --i) {
+         auto current = Str[i];
+         if ((i == 0)) {
+            result += romanNumerals[current];
+         }
+         else {
+            auto previous = Str[i - 1];
+            if (romanNumerals[current] > romanNumerals[previous]) {
+               result += romanNumerals[current] - romanNumerals[previous];
+               --i;
             }
             else {
-               result += 1;
+               result += romanNumerals[current];
             }
          }
-         else if ('V' == *it) {
-            result += 5;
-         }
-         else if ('X' == *it) {
-            if (prev == 'L' || prev == 'C') {
-               result -= 10;
-            } else {
-               result += 10;
-            }
-         }
-         else if ('L' == *it) {
-            result += 50;
-         }
-         else if ('C' == *it) {
-            if (prev == 'D' || prev == 'M') {
-               result -= 100;
-            } else {
-               result += 100;
-            }
-         }
-         else if ('D' == *it) {
-            result += 500;
-         }
-         else if ('M' == *it) {
-            result += 1000;
-         }
-
-         prev = *it;
       }
 
       return result;
    }
 
 private:
-   // std::map<char, int> romanNumerals = {
-   //    { 'I', 1 }, { 'V', 5 },
-   //    { 'X', 10 }, { 'L', 50 },
-   //    { 'C', 100 }, { 'D', 500 },
-   //    { 'M', 1000 }
-   // };
+   std::map<char, int> romanNumerals = {
+      { 'I', 1 }, { 'V', 5 },
+      { 'X', 10 }, { 'L', 50 },
+      { 'C', 100 }, { 'D', 500 },
+      { 'M', 1000 }
+   };
 };
 
 
