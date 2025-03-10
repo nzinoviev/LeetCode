@@ -14,22 +14,17 @@ class Solution {
 public:
    int romanToInt(const std::string& Str) {
       int result = 0;
+      int current = 0;
+      int previous = 0;
 
-      for (int i = Str.size() - 1; i >= 0; --i) {
-         auto current = Str[i];
-         if ((i == 0)) {
-            result += romanNumerals[current];
+      for (int i = Str.length() - 1; i >= 0; --i) {
+         current = romanNumerals[Str[i]];
+         if (current < previous) {
+            result -= current;
+         } else {
+            result += current;
          }
-         else {
-            auto previous = Str[i - 1];
-            if (romanNumerals[current] > romanNumerals[previous]) {
-               result += romanNumerals[current] - romanNumerals[previous];
-               --i;
-            }
-            else {
-               result += romanNumerals[current];
-            }
-         }
+         previous = current;
       }
 
       return result;
