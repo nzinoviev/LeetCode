@@ -8,55 +8,35 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Solution.
+/// Solution (Horizontal scanning).
 ///////////////////////////////////////////////////////////////////////////////
 
+//
+// LCP (S1, ..., Sn) = LCP(LCP(LCP(S1, S2), S3), ..., Sn)
+//
+
 class Solution {
-public:
-   std::string longestCommonPrefix(std::vector<std::string>& strs) {
-      if (std::find(std::begin(strs), std::end(strs), "") != std::end(strs)) {
-         return "";
-      }
-
-      std::string prefix = "";
-      std::size_t index = 0;
-      bool exit = false;
-
-      while (true) {
-         std::map<char, int> map;
-         for (std::size_t i = 0; i < strs.size(); ++i) {
-            if (strs[i].find(prefix) != std::string::npos && index < strs[i].length()) {
-               map[strs[i][index]]++;
+   public:
+      std::string
+      longestCommonPrefix(
+         std::vector<std::string>& Strs) {
+            if (Strs.size() == 0) {
+               return "";
             }
-         }
 
-         auto maxIt = std::max_element(
-                        std::begin(map),
-                        std::begin(map),
-                        [](const auto& lhs, const auto& rhs) {
-                           return lhs.second < rhs.second;
-                        });
-         if (maxIt == map.end()) {
-            break;
-         }
-
-         for (std::size_t i = 0; i < strs.size(); ++i) {
-            if (strs[i][index] != maxIt->first) {
-               exit = true;
+            std::string prefix = Strs[0];
+            for (std::size_t i = 1; i < Strs.size(); ++i) {
+               while (Strs[i].find(prefix) != 0) {
+                  prefix = prefix.substr(0, prefix.length() - 1);
+                  if (prefix.empty()) {
+                     return "";
+                  }
+               }
             }
-         }
-         if (exit) {
-            break;
-         }
 
-         prefix += maxIt->first;
-         ++index;
+         return prefix;
       }
-
-      return prefix;
-   }
-
-};
+   };
 
 
 ///////////////////////////////////////////////////////////////////////////////
