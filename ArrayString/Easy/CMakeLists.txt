@@ -1,0 +1,4 @@
+add_subdirectory(RomanToInteger)
+add_subdirectory(LongestCommonPrefix)
+add_subdirectory(MergeSortedArray)
+add_subdirectory(RemoveDuplicatesFromSortedArray)
