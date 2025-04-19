@@ -14,12 +14,7 @@
 //       Nz
 // 0 1 0 3 12
 //         It
-// 1 3 12 3 12
-
-//         Nz
-// 1 2 0 4 5
-//       It
-// 1 2 4 5 0
+// 1 3 12 0 0
 
 class Solution
 {
@@ -27,28 +22,12 @@ public:
    void moveZeroes(std::vector<int>& Nums)
    {
       auto nz = Nums.begin();
-      auto it = Nums.begin();
-      for (; it != Nums.end() && nz != Nums.end(); ++it)
+      for (auto it = Nums.begin(); it != Nums.end(); ++it)
       {
-         // Ищем ненулевой элемент.
-         while ((nz != Nums.end()) && (0 == *nz))
+         if (*it != 0)
          {
-            ++nz;
+            std::swap(*it, *nz++);
          }
-
-         if (nz == Nums.end())
-         {
-            break;
-         }
-
-         int tmp = *it;
-         *it = *nz;
-         ++nz;
-      }
-
-      for (; it != Nums.end(); ++it)
-      {
-         *it = 0;
       }
    }
 
