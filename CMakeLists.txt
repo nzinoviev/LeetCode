@@ -11,4 +11,4 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 add_subdirectory(External/GTest)
-add_subdirectory(ArrayString)
+add_subdirectory(Easy)
